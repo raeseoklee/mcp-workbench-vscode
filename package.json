@@ -62,9 +62,14 @@
       ],
       "view/title": [
         {
+          "command": "mcpWorkbench.runWorkspaceSpecs",
+          "when": "view == mcpWorkbenchResults",
+          "group": "navigation@1"
+        },
+        {
           "command": "mcpWorkbench.refreshResults",
           "when": "view == mcpWorkbenchResults",
-          "group": "navigation"
+          "group": "navigation@2"
         }
       ],
       "commandPalette": [
@@ -74,11 +79,20 @@
         }
       ]
     },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "mcp-workbench",
+          "title": "MCP Workbench",
+          "icon": "media/activity-icon.svg"
+        }
+      ]
+    },
     "views": {
-      "explorer": [
+      "mcp-workbench": [
         {
           "id": "mcpWorkbenchResults",
-          "name": "MCP Workbench",
+          "name": "Test Results",
           "icon": "$(beaker)",
           "contextualTitle": "MCP Workbench Test Results"
         }
