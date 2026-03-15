@@ -2,27 +2,24 @@
 
 Run, inspect, and validate [MCP](https://modelcontextprotocol.io) servers directly from VS Code.
 
-This extension is the official IDE integration for [MCP Workbench](https://github.com/raeseoklee/mcp-workbench).
+Official IDE integration for **[MCP Workbench](https://github.com/raeseoklee/mcp-workbench)**.
+
+[![VS Code Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/mcp-workbench.mcp-workbench-vscode)](https://marketplace.visualstudio.com/items?itemName=mcp-workbench.mcp-workbench-vscode)
+[![Downloads](https://img.shields.io/visual-studio-marketplace/d/mcp-workbench.mcp-workbench-vscode)](https://marketplace.visualstudio.com/items?itemName=mcp-workbench.mcp-workbench-vscode)
+[![License](https://img.shields.io/github/license/raeseoklee/mcp-workbench-vscode)](LICENSE)
 
 ---
 
-## Prerequisites
+## Overview
 
-Install the MCP Workbench CLI:
+MCP Workbench for VS Code provides an integrated environment for running and validating MCP servers directly inside the editor.
 
-```bash
-npm install -g mcp-workbench
-```
+- Run YAML-based MCP test specifications without leaving the editor
+- View test results, assertion failures, and diffs in a dedicated tree view
+- Failed assertions surface as Problems panel diagnostics with file locations
+- Full execution logs streamed to the MCP Workbench output channel
 
-### Troubleshooting
-
-| Symptom | Cause | Fix |
-|---------|-------|-----|
-| `Failed to launch mcp-workbench` | CLI not on PATH | Check `mcpWorkbench.cliPath` setting or run `npm install -g mcp-workbench` |
-| `Failed to parse mcp-workbench output` | CLI version too old (pre-JSON support) | Upgrade: `npm install -g mcp-workbench` |
-| `No active editor` | Command run without a file open | Open a `.yaml` spec file first |
-| `Current file does not appear to be an MCP Workbench spec` | File missing `apiVersion: mcp-workbench.dev/v0alpha1` | Add the apiVersion line to your spec |
-| Results tree shows nothing | No spec has been run yet | Run a spec first with **Run Current Spec** |
+This extension delegates execution to the **mcp-workbench CLI** and presents its output inside VS Code.
 
 ---
 
@@ -31,9 +28,37 @@ npm install -g mcp-workbench
 - **Run Current Spec** — run the open YAML spec file and see results inline
 - **Run All Workspace Specs** — discover and run all spec files in the workspace
 - **Update Snapshots** — regenerate snapshot baselines for the current spec
-- **Test Results tree** — collapsible view showing every test and assertion
-- **Problems panel** — failed assertions appear as diagnostics in the Problems panel
-- **Output channel** — full run log in the MCP Workbench output panel
+- **Test Results Tree** — collapsible view showing every test and assertion
+- **Problems Panel Integration** — failed assertions appear as diagnostics in the Problems panel
+- **Output Channel Logs** — full run log in the MCP Workbench output panel
+
+---
+
+## Installation
+
+### From the VS Code Marketplace
+
+1. Open the **Extensions** panel (`Ctrl+Shift+X` / `Cmd+Shift+X`)
+2. Search for **MCP Workbench**
+3. Click **Install**
+
+### Prerequisites
+
+The extension requires the MCP Workbench CLI:
+
+```bash
+npm install -g mcp-workbench
+```
+
+---
+
+## Quick Start
+
+1. Install the CLI: `npm install -g mcp-workbench`
+2. Create a spec file (see [Spec File Format](#spec-file-format) below)
+3. Open the spec file in VS Code
+4. Press `Cmd+Shift+P` → **MCP Workbench: Run Current Spec**
+5. View results in the **MCP Workbench** panel in the Activity Bar
 
 ---
 
@@ -72,9 +97,11 @@ MCP Workbench: Update Snapshots
 
 ---
 
-## Spec file format
+## Spec File Format
 
-The extension recognises files containing `apiVersion: mcp-workbench.dev/v0alpha1`:
+The extension recognises files containing `apiVersion: mcp-workbench.dev/v0alpha1`.
+
+Minimal example:
 
 ```yaml
 apiVersion: mcp-workbench.dev/v0alpha1
@@ -94,15 +121,23 @@ tests:
         equals: success
 ```
 
-See the [MCP Workbench documentation](https://github.com/raeseoklee/mcp-workbench) for the full spec format.
-
-See the [CLI JSON contract](https://github.com/raeseoklee/mcp-workbench/blob/main/docs/integration-contract.md) for the full output schema.
+See the [MCP Workbench documentation](https://github.com/raeseoklee/mcp-workbench) for the full spec format including snapshots, assertions, and client simulator fixtures.
 
 ---
 
-## Scope of this release (v0.1)
+## Troubleshooting
 
-This is the MVP release. Supported features:
+| Symptom | Cause | Fix |
+|---------|-------|-----|
+| `Failed to launch mcp-workbench` | CLI not on PATH | Set `mcpWorkbench.cliPath` or run `npm install -g mcp-workbench` |
+| `Failed to parse mcp-workbench output` | CLI version too old | Upgrade: `npm install -g mcp-workbench` |
+| `No active editor` | Command run without a file open | Open a `.yaml` spec file first |
+| `Current file does not appear to be an MCP Workbench spec` | File missing `apiVersion` | Add `apiVersion: mcp-workbench.dev/v0alpha1` to your spec |
+| Results tree shows nothing | No spec has been run yet | Run a spec with **Run Current Spec** |
+
+---
+
+## Roadmap
 
 | Feature | Status |
 |---------|--------|
@@ -111,9 +146,10 @@ This is the MVP release. Supported features:
 | Test Results tree view | ✓ |
 | Problems panel diagnostics | ✓ |
 | Output channel log | ✓ |
-| Inspect panel (interactive server connection) | Planned |
 | Inline test decorations in the editor | Planned |
 | VS Code Testing API integration | Planned |
+| Interactive MCP server inspector | Planned |
+| Live protocol timeline viewer | Planned |
 
 ---
 
@@ -122,8 +158,17 @@ This is the MVP release. Supported features:
 ```bash
 npm install
 npm run build:watch   # incremental build
-# Press F5 in VS Code to launch the Extension Development Host
 ```
+
+Press **F5** in VS Code to launch the Extension Development Host.
+
+---
+
+## Contributing
+
+Contributions are welcome. Please open an issue or submit a pull request.
+
+For core CLI and spec engine development, see the [main MCP Workbench repository](https://github.com/raeseoklee/mcp-workbench).
 
 ---
 
