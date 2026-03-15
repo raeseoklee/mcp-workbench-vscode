@@ -1,0 +1,123 @@
+{
+  "name": "mcp-workbench-vscode",
+  "displayName": "MCP Workbench",
+  "description": "Run, inspect, and validate MCP servers from VS Code",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "publisher": "mcp-workbench",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/raeseoklee/mcp-workbench-vscode.git"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Testing",
+    "Other"
+  ],
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "testing",
+    "ai"
+  ],
+  "icon": "media/icon.png",
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onLanguage:yaml",
+    "workspaceContains:**/*.yaml",
+    "workspaceContains:**/*.yml"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "mcpWorkbench.runCurrentSpec",
+        "title": "MCP Workbench: Run Current Spec",
+        "icon": "$(play)"
+      },
+      {
+        "command": "mcpWorkbench.runWorkspaceSpecs",
+        "title": "MCP Workbench: Run All Workspace Specs",
+        "icon": "$(run-all)"
+      },
+      {
+        "command": "mcpWorkbench.updateSnapshots",
+        "title": "MCP Workbench: Update Snapshots",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "mcpWorkbench.refreshResults",
+        "title": "Refresh",
+        "icon": "$(refresh)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "when": "resourceExtname == .yaml || resourceExtname == .yml",
+          "command": "mcpWorkbench.runCurrentSpec",
+          "group": "navigation"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "mcpWorkbench.refreshResults",
+          "when": "view == mcpWorkbenchResults",
+          "group": "navigation"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "mcpWorkbench.runCurrentSpec",
+          "when": "editorLangId == yaml"
+        }
+      ]
+    },
+    "views": {
+      "explorer": [
+        {
+          "id": "mcpWorkbenchResults",
+          "name": "MCP Workbench",
+          "icon": "$(beaker)",
+          "contextualTitle": "MCP Workbench Test Results"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "MCP Workbench",
+      "properties": {
+        "mcpWorkbench.cliPath": {
+          "type": "string",
+          "default": "mcp-workbench",
+          "description": "Path to the mcp-workbench CLI executable. Defaults to 'mcp-workbench' (assumes globally installed)."
+        },
+        "mcpWorkbench.timeout": {
+          "type": "number",
+          "default": 30000,
+          "description": "Per-request timeout in milliseconds."
+        },
+        "mcpWorkbench.specGlob": {
+          "type": "string",
+          "default": "**/*.{yaml,yml}",
+          "description": "Glob pattern to discover spec files for 'Run Workspace Specs'."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "build": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node --sourcemap",
+    "build:watch": "npm run build -- --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests",
+    "lint": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/vscode": "^1.85.0",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.0.0"
+  }
+}
