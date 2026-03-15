@@ -47,36 +47,31 @@ export function deactivate(): void {
 
 // ── Commands ──────────────────────────────────────────────────────────────────
 
-async function cmdRunCurrentSpec(): Promise<void> {
+/** Returns the active editor if it contains a spec file, otherwise shows a warning and returns null. */
+function requireActiveSpecEditor(): vscode.TextEditor | null {
   const editor = vscode.window.activeTextEditor;
   if (!editor) {
     vscode.window.showWarningMessage("No active editor.");
-    return;
+    return null;
   }
-
   if (!isSpecFile(editor.document)) {
     vscode.window.showWarningMessage(
       "Current file does not appear to be an MCP Workbench spec (missing apiVersion).",
     );
-    return;
+    return null;
   }
+  return editor;
+}
 
+async function cmdRunCurrentSpec(): Promise<void> {
+  const editor = requireActiveSpecEditor();
+  if (!editor) return;
   await executeRun(editor.document.uri, { updateSnapshots: false });
 }
 
 async function cmdUpdateSnapshots(): Promise<void> {
-  const editor = vscode.window.activeTextEditor;
-  if (!editor) {
-    vscode.window.showWarningMessage("No active editor.");
-    return;
-  }
-
-  if (!isSpecFile(editor.document)) {
-    vscode.window.showWarningMessage(
-      "Current file does not appear to be an MCP Workbench spec (missing apiVersion).",
-    );
-    return;
-  }
+  const editor = requireActiveSpecEditor();
+  if (!editor) return;
 
   const confirmed = await vscode.window.showInformationMessage(
     "Update snapshots for this spec? This will overwrite existing baselines.",

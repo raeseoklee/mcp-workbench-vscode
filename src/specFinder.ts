@@ -24,18 +24,17 @@ export async function findWorkspaceSpecs(): Promise<vscode.Uri[]> {
     "**/node_modules/**",
   );
 
-  // Filter to files that contain the apiVersion marker
-  const specFiles: vscode.Uri[] = [];
-  for (const uri of files) {
-    try {
-      const doc = await vscode.workspace.openTextDocument(uri);
-      if (isSpecFile(doc)) {
-        specFiles.push(uri);
+  // Filter to files that contain the apiVersion marker (parallel opens)
+  const results = await Promise.all(
+    files.map(async (uri) => {
+      try {
+        const doc = await vscode.workspace.openTextDocument(uri);
+        return isSpecFile(doc) ? uri : null;
+      } catch {
+        return null;
       }
-    } catch {
-      // skip unreadable files
-    }
-  }
+    }),
+  );
 
-  return specFiles;
+  return results.filter((u): u is vscode.Uri => u !== null);
 }

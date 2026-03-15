@@ -30,8 +30,17 @@ function getTimeout(): number {
  * Invokes `mcp-workbench run <specFile> --json` as a subprocess.
  * Returns the parsed RunReport, or throws with the stderr output on failure.
  */
+const TIMEOUT_BUFFER_MS = 5000;
+
 export function runSpec(opts: RunOptions): Promise<RunResult> {
   return new Promise((resolve, reject) => {
+    let settled = false;
+    const settle = (fn: () => void) => {
+      if (settled) return;
+      settled = true;
+      fn();
+    };
+
     const cli = getCliPath();
     const timeout = opts.timeout ?? getTimeout();
 
@@ -64,29 +73,33 @@ export function runSpec(opts: RunOptions): Promise<RunResult> {
 
     const timer = setTimeout(() => {
       proc.kill();
-      reject(new Error(`mcp-workbench timed out after ${timeout}ms`));
-    }, timeout + 5000);
+      settle(() => reject(new Error(`mcp-workbench timed out after ${timeout}ms`)));
+    }, timeout + TIMEOUT_BUFFER_MS);
 
     proc.on("close", () => {
       clearTimeout(timer);
-      try {
-        const report = JSON.parse(stdout.trim()) as RunReport;
-        resolve({ report, raw: stdout });
-      } catch {
-        reject(
-          new Error(
-            `Failed to parse mcp-workbench output.\n${stderr || stdout}`.trim(),
-          ),
-        );
-      }
+      settle(() => {
+        try {
+          const report = JSON.parse(stdout.trim()) as RunReport;
+          resolve({ report, raw: stdout });
+        } catch {
+          reject(
+            new Error(
+              `Failed to parse mcp-workbench output.\n${stderr || stdout}`.trim(),
+            ),
+          );
+        }
+      });
     });
 
     proc.on("error", (err) => {
       clearTimeout(timer);
-      reject(
-        new Error(
-          `Failed to launch mcp-workbench: ${err.message}\n` +
-            `Make sure '${cli}' is installed (npm install -g mcp-workbench).`,
+      settle(() =>
+        reject(
+          new Error(
+            `Failed to launch mcp-workbench: ${err.message}\n` +
+              `Make sure '${cli}' is installed (npm install -g mcp-workbench).`,
+          ),
         ),
       );
     });
