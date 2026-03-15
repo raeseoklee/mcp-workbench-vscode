@@ -4,8 +4,8 @@ Run, inspect, and validate [MCP](https://modelcontextprotocol.io) servers direct
 
 Official IDE integration for **[MCP Workbench](https://github.com/raeseoklee/mcp-workbench)**.
 
-[![VS Code Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/mcp-workbench.mcp-workbench-vscode)](https://marketplace.visualstudio.com/items?itemName=mcp-workbench.mcp-workbench-vscode)
-[![Downloads](https://img.shields.io/visual-studio-marketplace/d/mcp-workbench.mcp-workbench-vscode)](https://marketplace.visualstudio.com/items?itemName=mcp-workbench.mcp-workbench-vscode)
+[![VS Code Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/raeseoklee.mcp-workbench-vscode)](https://marketplace.visualstudio.com/items?itemName=raeseoklee.mcp-workbench-vscode)
+[![Downloads](https://img.shields.io/visual-studio-marketplace/d/raeseoklee.mcp-workbench-vscode)](https://marketplace.visualstudio.com/items?itemName=raeseoklee.mcp-workbench-vscode)
 [![License](https://img.shields.io/github/license/raeseoklee/mcp-workbench-vscode)](LICENSE)
 
 ---

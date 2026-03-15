@@ -4,7 +4,7 @@
   "description": "Run, inspect, and validate MCP servers from VS Code",
   "version": "0.1.0",
   "license": "Apache-2.0",
-  "publisher": "mcp-workbench",
+  "publisher": "raeseoklee",
   "repository": {
     "type": "git",
     "url": "https://github.com/raeseoklee/mcp-workbench-vscode.git"
