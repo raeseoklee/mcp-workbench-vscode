@@ -14,6 +14,16 @@ Install the MCP Workbench CLI:
 npm install -g mcp-workbench
 ```
 
+### Troubleshooting
+
+| Symptom | Cause | Fix |
+|---------|-------|-----|
+| `Failed to launch mcp-workbench` | CLI not on PATH | Check `mcpWorkbench.cliPath` setting or run `npm install -g mcp-workbench` |
+| `Failed to parse mcp-workbench output` | CLI version too old (pre-JSON support) | Upgrade: `npm install -g mcp-workbench` |
+| `No active editor` | Command run without a file open | Open a `.yaml` spec file first |
+| `Current file does not appear to be an MCP Workbench spec` | File missing `apiVersion: mcp-workbench.dev/v0alpha1` | Add the apiVersion line to your spec |
+| Results tree shows nothing | No spec has been run yet | Run a spec first with **Run Current Spec** |
+
 ---
 
 ## Features
@@ -85,6 +95,25 @@ tests:
 ```
 
 See the [MCP Workbench documentation](https://github.com/raeseoklee/mcp-workbench) for the full spec format.
+
+See the [CLI JSON contract](https://github.com/raeseoklee/mcp-workbench/blob/main/docs/integration-contract.md) for the full output schema.
+
+---
+
+## Scope of this release (v0.1)
+
+This is the MVP release. Supported features:
+
+| Feature | Status |
+|---------|--------|
+| Run spec via CLI | ✓ |
+| Update snapshots | ✓ |
+| Test Results tree view | ✓ |
+| Problems panel diagnostics | ✓ |
+| Output channel log | ✓ |
+| Inspect panel (interactive server connection) | Planned |
+| Inline test decorations in the editor | Planned |
+| VS Code Testing API integration | Planned |
 
 ---
 
