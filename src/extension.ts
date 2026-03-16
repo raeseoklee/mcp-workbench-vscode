@@ -3,6 +3,8 @@ import { runSpec } from "./runner.js";
 import { ResultsTreeProvider } from "./resultsTree.js";
 import { updateDiagnostics, clearDiagnostics } from "./diagnostics.js";
 import { isSpecFile, findWorkspaceSpecs } from "./specFinder.js";
+import { generateSpec } from "./generator.js";
+import { runGenerateWizard } from "./generateWizard.js";
 
 let outputChannel: vscode.OutputChannel;
 let diagnosticCollection: vscode.DiagnosticCollection;
@@ -38,6 +40,10 @@ export function activate(context: vscode.ExtensionContext): void {
     vscode.commands.registerCommand("mcpWorkbench.refreshResults", () => {
       resultsProvider.clear();
     }),
+    vscode.commands.registerCommand(
+      "mcpWorkbench.generateSpec",
+      cmdGenerateSpec,
+    ),
   );
 }
 
@@ -127,6 +133,38 @@ async function cmdRunWorkspaceSpecs(): Promise<void> {
       `MCP Workbench: All ${totalPassed} test(s) passed.`,
     );
   }
+}
+
+async function cmdGenerateSpec(): Promise<void> {
+  const opts = await runGenerateWizard();
+  if (!opts) return;
+
+  outputChannel.show(true);
+  outputChannel.appendLine(`\n[MCP Workbench] Generating spec → ${opts.outputFile}`);
+
+  await vscode.window.withProgress(
+    {
+      location: vscode.ProgressLocation.Notification,
+      title: "MCP Workbench: connecting to server and generating spec...",
+      cancellable: false,
+    },
+    async () => {
+      try {
+        await generateSpec(opts);
+        outputChannel.appendLine("  ✓ Spec generated successfully\n");
+
+        const uri = vscode.Uri.file(opts.outputFile);
+        await vscode.window.showTextDocument(uri);
+        vscode.window.showInformationMessage(
+          `MCP Workbench: spec generated → ${opts.outputFile.split("/").pop()}`,
+        );
+      } catch (err) {
+        const message = err instanceof Error ? err.message : String(err);
+        outputChannel.appendLine(`  ✗ Error: ${message}\n`);
+        vscode.window.showErrorMessage(`MCP Workbench: ${message}`);
+      }
+    },
+  );
 }
 
 // ── Core run logic ─────────────────────────────────────────────────────────────

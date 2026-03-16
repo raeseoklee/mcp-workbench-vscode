@@ -50,6 +50,11 @@
         "command": "mcpWorkbench.refreshResults",
         "title": "Refresh",
         "icon": "$(refresh)"
+      },
+      {
+        "command": "mcpWorkbench.generateSpec",
+        "title": "MCP Workbench: Generate Spec from Server",
+        "icon": "$(sparkle)"
       }
     ],
     "menus": {
@@ -62,14 +67,19 @@
       ],
       "view/title": [
         {
-          "command": "mcpWorkbench.runWorkspaceSpecs",
+          "command": "mcpWorkbench.generateSpec",
           "when": "view == mcpWorkbenchResults",
           "group": "navigation@1"
         },
         {
-          "command": "mcpWorkbench.refreshResults",
+          "command": "mcpWorkbench.runWorkspaceSpecs",
           "when": "view == mcpWorkbenchResults",
           "group": "navigation@2"
+        },
+        {
+          "command": "mcpWorkbench.refreshResults",
+          "when": "view == mcpWorkbenchResults",
+          "group": "navigation@3"
         }
       ],
       "commandPalette": [
