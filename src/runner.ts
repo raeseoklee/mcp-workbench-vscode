@@ -1,4 +1,5 @@
 import * as cp from "child_process";
+import * as path from "path";
 import * as vscode from "vscode";
 import type { RunReport } from "./types.js";
 
@@ -52,7 +53,10 @@ export function runSpec(opts: RunOptions): Promise<RunResult> {
       args.push("--timeout", String(opts.timeout));
     }
 
-    const cwd = opts.cwd ?? vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
+    const cwd =
+      opts.cwd ??
+      vscode.workspace.workspaceFolders?.[0]?.uri.fsPath ??
+      path.dirname(opts.specFile);
 
     const proc = cp.spawn(cli, args, {
       cwd,
