@@ -47,14 +47,23 @@ This extension delegates execution to the **mcp-workbench CLI** and presents its
 The extension requires the MCP Workbench CLI:
 
 ```bash
-npm install -g mcp-workbench
+# Primary — scoped package
+npm install -g @raeseoklee/mcp-workbench
+
+# Alternative — convenience wrapper
+npm install -g mcp-workbench-cli
 ```
+
+Both install the same `mcp-workbench` command.
+
+> **Note:** The unscoped `mcp-workbench` npm package is an unrelated project.
+> Make sure to install one of the two options above.
 
 ---
 
 ## Quick Start
 
-1. Install the CLI: `npm install -g mcp-workbench`
+1. Install the CLI: `npm install -g @raeseoklee/mcp-workbench`
 2. Create a spec file (see [Spec File Format](#spec-file-format) below)
 3. Open the spec file in VS Code
 4. Press `Cmd+Shift+P` → **MCP Workbench: Run Current Spec**
@@ -129,11 +138,20 @@ See the [MCP Workbench documentation](https://github.com/raeseoklee/mcp-workbenc
 
 | Symptom | Cause | Fix |
 |---------|-------|-----|
-| `Failed to launch mcp-workbench` | CLI not on PATH | Set `mcpWorkbench.cliPath` or run `npm install -g mcp-workbench` |
-| `Failed to parse mcp-workbench output` | CLI version too old | Upgrade: `npm install -g mcp-workbench` |
+| `Failed to launch mcp-workbench` | CLI not on PATH | Set `mcpWorkbench.cliPath` or run `npm install -g @raeseoklee/mcp-workbench` |
+| `Failed to parse mcp-workbench output` | CLI version too old | Upgrade: `npm install -g @raeseoklee/mcp-workbench` |
+| Installed `mcp-workbench` but wrong tool | Unrelated npm package | Uninstall it, then install `@raeseoklee/mcp-workbench` or `mcp-workbench-cli` |
 | `No active editor` | Command run without a file open | Open a `.yaml` spec file first |
 | `Current file does not appear to be an MCP Workbench spec` | File missing `apiVersion` | Add `apiVersion: mcp-workbench.dev/v0alpha1` to your spec |
 | Results tree shows nothing | No spec has been run yet | Run a spec with **Run Current Spec** |
+
+---
+
+## FAQ
+
+**Why isn't the npm package named simply `mcp-workbench`?**
+
+The unscoped `mcp-workbench` name on npm is taken by an unrelated project (an MCP server aggregator). Our CLI is published as `@raeseoklee/mcp-workbench`, with `mcp-workbench-cli` as a convenience alternative. Both install the same `mcp-workbench` command.
 
 ---
 

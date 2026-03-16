@@ -98,7 +98,7 @@ export function runSpec(opts: RunOptions): Promise<RunResult> {
         reject(
           new Error(
             `Failed to launch mcp-workbench: ${err.message}\n` +
-              `Make sure '${cli}' is installed (npm install -g mcp-workbench).`,
+              `Make sure '${cli}' is installed (npm install -g @raeseoklee/mcp-workbench).`,
           ),
         ),
       );
