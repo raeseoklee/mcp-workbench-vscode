@@ -1,5 +1,7 @@
 # MCP Workbench — VS Code Extension
 
+**English** | [한국어](README.ko.md)
+
 Run, inspect, and validate [MCP](https://modelcontextprotocol.io) servers directly from VS Code.
 
 Official IDE integration for **[MCP Workbench](https://github.com/raeseoklee/mcp-workbench)**.
