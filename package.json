@@ -2,7 +2,7 @@
   "name": "mcp-workbench-vscode",
   "displayName": "MCP Workbench",
   "description": "Run, inspect, and validate MCP servers from VS Code",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "license": "Apache-2.0",
   "publisher": "raeseoklee",
   "repository": {
@@ -27,7 +27,8 @@
   "activationEvents": [
     "onLanguage:yaml",
     "workspaceContains:**/*.yaml",
-    "workspaceContains:**/*.yml"
+    "workspaceContains:**/*.yml",
+    "onCommand:mcpWorkbench.generateSpec"
   ],
   "contributes": {
     "commands": [

@@ -27,6 +27,7 @@ This extension delegates execution to the **mcp-workbench CLI** and presents its
 
 ## Features
 
+- **Generate Spec from Server** — connect to any MCP server and auto-generate a YAML test spec with a guided wizard
 - **Run Current Spec** — run the open YAML spec file and see results inline
 - **Run All Workspace Specs** — discover and run all spec files in the workspace
 - **Update Snapshots** — regenerate snapshot baselines for the current spec
@@ -74,6 +75,22 @@ Both install the same `mcp-workbench` command.
 ---
 
 ## Usage
+
+### Generate a spec from a running server
+
+Click the **✦** button in the MCP Workbench Test Results panel,
+or use the Command Palette:
+
+```
+MCP Workbench: Generate Spec from Server
+```
+
+A wizard guides you through four steps:
+
+1. **Transport** — `stdio` (local process) or `streamable-http` (HTTP server)
+2. **Connection** — command + args for stdio, or URL for HTTP
+3. **Depth** — `shallow` (list capabilities only) or `deep` (also call safe tools)
+4. **Output file** — where to save the generated YAML spec
 
 ### Run the current spec
 
@@ -166,6 +183,7 @@ The unscoped `mcp-workbench` name on npm is taken by an unrelated project (an MC
 | Test Results tree view | ✓ |
 | Problems panel diagnostics | ✓ |
 | Output channel log | ✓ |
+| Generate spec from server | ✓ |
 | Inline test decorations in the editor | Planned |
 | VS Code Testing API integration | Planned |
 | Interactive MCP server inspector | Planned |

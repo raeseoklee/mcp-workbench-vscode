@@ -6,6 +6,24 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [0.2.0] — 2026-03-17
+
+### Added
+
+- **Generate Spec from Server** command — launches a 4-step wizard (transport → connection → depth → output file) and calls `mcp-workbench generate` to scaffold a YAML test spec from a live MCP server
+- `$(sparkle)` toolbar button in the Test Results panel to trigger spec generation
+- `onCommand:mcpWorkbench.generateSpec` activation event so the command works before any YAML file is opened
+
+---
+
+## [0.1.1] — 2026-03-16
+
+### Fixed
+
+- Use the spec file's directory as `cwd` when no VS Code workspace folder is open, preventing `spawn ENOENT` errors when running specs from arbitrary locations
+
+---
+
 ## [0.1.0] — 2026-03-15
 
 ### Added
