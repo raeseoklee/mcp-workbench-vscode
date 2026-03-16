@@ -28,6 +28,7 @@ This extension delegates execution to the **mcp-workbench CLI** and presents its
 ## Features
 
 - **Generate Spec from Server** — connect to any MCP server and auto-generate a YAML test spec with a guided wizard
+- **Korean UI** — all commands, settings descriptions, and notifications are localised when VS Code is set to Korean (`ko`)
 - **Run Current Spec** — run the open YAML spec file and see results inline
 - **Run All Workspace Specs** — discover and run all spec files in the workspace
 - **Update Snapshots** — regenerate snapshot baselines for the current spec
@@ -184,6 +185,7 @@ The unscoped `mcp-workbench` name on npm is taken by an unrelated project (an MC
 | Problems panel diagnostics | ✓ |
 | Output channel log | ✓ |
 | Generate spec from server | ✓ |
+| Korean localisation | ✓ |
 | Inline test decorations in the editor | Planned |
 | VS Code Testing API integration | Planned |
 | Interactive MCP server inspector | Planned |

@@ -62,7 +62,7 @@ export function generateSpec(opts: GenerateOptions): Promise<string> {
 
     const timer = setTimeout(() => {
       proc.kill();
-      settle(() => reject(new Error(`mcp-workbench generate timed out after ${timeout}ms`)));
+      settle(() => reject(new Error(vscode.l10n.t("mcp-workbench generate timed out after {0}ms", timeout))));
     }, timeout + TIMEOUT_BUFFER_MS);
 
     proc.on("close", (code) => {
@@ -81,8 +81,11 @@ export function generateSpec(opts: GenerateOptions): Promise<string> {
       settle(() =>
         reject(
           new Error(
-            `Failed to launch mcp-workbench: ${err.message}\n` +
-              `Make sure '${cli}' is installed (npm install -g @mcp-workbench/cli).`,
+            vscode.l10n.t(
+              "Failed to launch mcp-workbench: {0}\nMake sure '{1}' is installed (npm install -g @mcp-workbench/cli).",
+              err.message,
+              cli,
+            ),
           ),
         ),
       );

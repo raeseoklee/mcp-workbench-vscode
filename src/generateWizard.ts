@@ -10,10 +10,10 @@ export async function runGenerateWizard(): Promise<GenerateOptions | null> {
   // ── Step 1: Transport ──────────────────────────────────────────────────────
   const transportPick = await vscode.window.showQuickPick(
     [
-      { label: "stdio", description: "Launch a local process (most common)" },
-      { label: "streamable-http", description: "Connect to an HTTP server" },
+      { label: "stdio", description: vscode.l10n.t("Launch a local process (most common)") },
+      { label: "streamable-http", description: vscode.l10n.t("Connect to an HTTP server") },
     ],
-    { title: "Generate Spec (1/4)", placeHolder: "Select transport" },
+    { title: vscode.l10n.t("Generate Spec (1/4)"), placeHolder: vscode.l10n.t("Select transport") },
   );
   if (!transportPick) return null;
   const transport = transportPick.label as "stdio" | "streamable-http";
@@ -25,25 +25,25 @@ export async function runGenerateWizard(): Promise<GenerateOptions | null> {
 
   if (transport === "stdio") {
     command = await vscode.window.showInputBox({
-      title: "Generate Spec (2/4)",
-      prompt: "Command to launch the MCP server",
-      placeHolder: "e.g. node",
+      title: vscode.l10n.t("Generate Spec (2/4)"),
+      prompt: vscode.l10n.t("Command to launch the MCP server"),
+      placeHolder: vscode.l10n.t("e.g. node"),
       ignoreFocusOut: true,
     });
     if (command === undefined) return null;
 
     args = await vscode.window.showInputBox({
-      title: "Generate Spec (2/4)",
-      prompt: "Arguments (space-separated)",
-      placeHolder: "e.g. dist/server.js",
+      title: vscode.l10n.t("Generate Spec (2/4)"),
+      prompt: vscode.l10n.t("Arguments (space-separated)"),
+      placeHolder: vscode.l10n.t("e.g. dist/server.js"),
       ignoreFocusOut: true,
     });
     if (args === undefined) return null;
   } else {
     url = await vscode.window.showInputBox({
-      title: "Generate Spec (2/4)",
-      prompt: "Server URL",
-      placeHolder: "e.g. http://localhost:3000/mcp",
+      title: vscode.l10n.t("Generate Spec (2/4)"),
+      prompt: vscode.l10n.t("Server URL"),
+      placeHolder: vscode.l10n.t("e.g. http://localhost:3000/mcp"),
       ignoreFocusOut: true,
     });
     if (url === undefined) return null;
@@ -54,15 +54,15 @@ export async function runGenerateWizard(): Promise<GenerateOptions | null> {
     [
       {
         label: "shallow",
-        description: "Discover tools/resources/prompts only (fast, safe)",
+        description: vscode.l10n.t("Discover tools/resources/prompts only (fast, safe)"),
         picked: true,
       },
       {
         label: "deep",
-        description: "Also call tools to infer response shapes (slower)",
+        description: vscode.l10n.t("Also call tools to infer response shapes (slower)"),
       },
     ],
-    { title: "Generate Spec (3/4)", placeHolder: "Generation depth" },
+    { title: vscode.l10n.t("Generate Spec (3/4)"), placeHolder: vscode.l10n.t("Generation depth") },
   );
   if (!depthPick) return null;
   const depth = depthPick.label as "shallow" | "deep";
@@ -70,7 +70,7 @@ export async function runGenerateWizard(): Promise<GenerateOptions | null> {
   // ── Step 4: Output file ────────────────────────────────────────────────────
   const defaultUri = defaultOutputUri();
   const outputUri = await vscode.window.showSaveDialog({
-    title: "Generate Spec (4/4) — Save spec file",
+    title: vscode.l10n.t("Generate Spec (4/4) — Save spec file"),
     defaultUri,
     filters: { "YAML spec": ["yaml", "yml"] },
   });

@@ -1,0 +1,12 @@
+{
+  "command.runCurrentSpec.title": "MCP Workbench: 현재 스펙 실행",
+  "command.runWorkspaceSpecs.title": "MCP Workbench: 워크스페이스 전체 스펙 실행",
+  "command.updateSnapshots.title": "MCP Workbench: 스냅샷 업데이트",
+  "command.refreshResults.title": "새로 고침",
+  "command.generateSpec.title": "MCP Workbench: 서버에서 스펙 생성",
+  "view.testResults.name": "테스트 결과",
+  "config.title": "MCP Workbench",
+  "config.cliPath.description": "mcp-workbench CLI 실행 파일 경로. 기본값은 'mcp-workbench' (전역 설치 가정).",
+  "config.timeout.description": "요청당 타임아웃 (밀리초).",
+  "config.specGlob.description": "'워크스페이스 전체 스펙 실행'에 사용할 스펙 파일 탐색 Glob 패턴."
+}

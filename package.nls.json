@@ -1,0 +1,12 @@
+{
+  "command.runCurrentSpec.title": "MCP Workbench: Run Current Spec",
+  "command.runWorkspaceSpecs.title": "MCP Workbench: Run All Workspace Specs",
+  "command.updateSnapshots.title": "MCP Workbench: Update Snapshots",
+  "command.refreshResults.title": "Refresh",
+  "command.generateSpec.title": "MCP Workbench: Generate Spec from Server",
+  "view.testResults.name": "Test Results",
+  "config.title": "MCP Workbench",
+  "config.cliPath.description": "Path to the mcp-workbench CLI executable. Defaults to 'mcp-workbench' (assumes globally installed).",
+  "config.timeout.description": "Per-request timeout in milliseconds.",
+  "config.specGlob.description": "Glob pattern to discover spec files for 'Run Workspace Specs'."
+}

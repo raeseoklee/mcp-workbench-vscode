@@ -57,12 +57,12 @@ export function deactivate(): void {
 function requireActiveSpecEditor(): vscode.TextEditor | null {
   const editor = vscode.window.activeTextEditor;
   if (!editor) {
-    vscode.window.showWarningMessage("No active editor.");
+    vscode.window.showWarningMessage(vscode.l10n.t("No active editor."));
     return null;
   }
   if (!isSpecFile(editor.document)) {
     vscode.window.showWarningMessage(
-      "Current file does not appear to be an MCP Workbench spec (missing apiVersion).",
+      vscode.l10n.t("Current file does not appear to be an MCP Workbench spec (missing apiVersion)."),
     );
     return null;
   }
@@ -79,12 +79,13 @@ async function cmdUpdateSnapshots(): Promise<void> {
   const editor = requireActiveSpecEditor();
   if (!editor) return;
 
+  const updateLabel = vscode.l10n.t("Update");
   const confirmed = await vscode.window.showInformationMessage(
-    "Update snapshots for this spec? This will overwrite existing baselines.",
+    vscode.l10n.t("Update snapshots for this spec? This will overwrite existing baselines."),
     { modal: true },
-    "Update",
+    updateLabel,
   );
-  if (confirmed !== "Update") return;
+  if (confirmed !== updateLabel) return;
 
   await executeRun(editor.document.uri, { updateSnapshots: true });
 }
@@ -94,7 +95,7 @@ async function cmdRunWorkspaceSpecs(): Promise<void> {
 
   if (specFiles.length === 0) {
     vscode.window.showInformationMessage(
-      "No MCP Workbench spec files found in workspace.",
+      vscode.l10n.t("No MCP Workbench spec files found in workspace."),
     );
     return;
   }
@@ -126,11 +127,11 @@ async function cmdRunWorkspaceSpecs(): Promise<void> {
 
   if (totalFailed + totalErrors > 0) {
     vscode.window.showErrorMessage(
-      `MCP Workbench: ${totalFailed + totalErrors} test(s) failed. See Output panel.`,
+      vscode.l10n.t("MCP Workbench: {0} test(s) failed. See Output panel.", totalFailed + totalErrors),
     );
   } else {
     vscode.window.showInformationMessage(
-      `MCP Workbench: All ${totalPassed} test(s) passed.`,
+      vscode.l10n.t("MCP Workbench: All {0} test(s) passed.", totalPassed),
     );
   }
 }
@@ -145,7 +146,7 @@ async function cmdGenerateSpec(): Promise<void> {
   await vscode.window.withProgress(
     {
       location: vscode.ProgressLocation.Notification,
-      title: "MCP Workbench: connecting to server and generating spec...",
+      title: vscode.l10n.t("MCP Workbench: connecting to server and generating spec..."),
       cancellable: false,
     },
     async () => {
@@ -156,7 +157,7 @@ async function cmdGenerateSpec(): Promise<void> {
         const uri = vscode.Uri.file(opts.outputFile);
         await vscode.window.showTextDocument(uri);
         vscode.window.showInformationMessage(
-          `MCP Workbench: spec generated → ${opts.outputFile.split("/").pop()}`,
+          vscode.l10n.t("MCP Workbench: spec generated → {0}", opts.outputFile.split("/").pop() ?? opts.outputFile),
         );
       } catch (err) {
         const message = err instanceof Error ? err.message : String(err);
@@ -195,7 +196,7 @@ async function executeRun(
   return await vscode.window.withProgress(
     {
       location: vscode.ProgressLocation.Notification,
-      title: `MCP Workbench: running ${specUri.path.split("/").pop()}`,
+      title: vscode.l10n.t("MCP Workbench: running {0}", specUri.path.split("/").pop() ?? specUri.path),
       cancellable: false,
     },
     async () => {
@@ -256,11 +257,11 @@ async function executeRun(
         if (!opts.silent) {
           if (report.failed + report.errors > 0) {
             vscode.window.showErrorMessage(
-              `MCP Workbench: ${report.failed + report.errors} test(s) failed.`,
+              vscode.l10n.t("MCP Workbench: {0} test(s) failed.", report.failed + report.errors),
             );
           } else {
             vscode.window.showInformationMessage(
-              `MCP Workbench: All ${report.passed} test(s) passed.`,
+              vscode.l10n.t("MCP Workbench: All {0} test(s) passed.", report.passed),
             );
           }
         }

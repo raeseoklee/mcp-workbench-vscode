@@ -66,7 +66,7 @@ export class ResultsTreeProvider
 
     const specLabel = this.specFile
       ? this.specFile.split("/").pop() ?? this.specFile
-      : "Test Suite";
+      : vscode.l10n.t("Test Suite");
 
     const allGood = this.report.failed === 0 && this.report.errors === 0;
     const icon = allGood
@@ -130,7 +130,7 @@ export class ResultsTreeProvider
             "error",
             new vscode.ThemeColor("testing.iconFailed"),
           );
-      item.description = ar.passed ? "passed" : (ar.message ?? "failed");
+      item.description = ar.passed ? vscode.l10n.t("passed") : (ar.message ?? vscode.l10n.t("failed"));
       if (!ar.passed && ar.actual !== undefined) {
         item.tooltip = `actual: ${JSON.stringify(ar.actual)}`;
       }

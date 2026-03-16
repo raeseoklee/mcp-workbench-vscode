@@ -13,6 +13,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **Generate Spec from Server** command — launches a 4-step wizard (transport → connection → depth → output file) and calls `mcp-workbench generate` to scaffold a YAML test spec from a live MCP server
 - `$(sparkle)` toolbar button in the Test Results panel to trigger spec generation
 - `onCommand:mcpWorkbench.generateSpec` activation event so the command works before any YAML file is opened
+- **Korean localisation (한국어)** — all user-facing strings (command palette titles, settings descriptions, wizard prompts, notifications) are displayed in Korean when VS Code is set to `ko` locale
+- `package.nls.ko.json` for `package.json` strings, `l10n/bundle.l10n.ko.json` for runtime strings
 
 ---
 

@@ -24,6 +24,7 @@
   ],
   "icon": "media/icon.png",
   "main": "./dist/extension.js",
+  "l10n": "./l10n",
   "activationEvents": [
     "onLanguage:yaml",
     "workspaceContains:**/*.yaml",
@@ -34,27 +35,27 @@
     "commands": [
       {
         "command": "mcpWorkbench.runCurrentSpec",
-        "title": "MCP Workbench: Run Current Spec",
+        "title": "%command.runCurrentSpec.title%",
         "icon": "$(play)"
       },
       {
         "command": "mcpWorkbench.runWorkspaceSpecs",
-        "title": "MCP Workbench: Run All Workspace Specs",
+        "title": "%command.runWorkspaceSpecs.title%",
         "icon": "$(run-all)"
       },
       {
         "command": "mcpWorkbench.updateSnapshots",
-        "title": "MCP Workbench: Update Snapshots",
+        "title": "%command.updateSnapshots.title%",
         "icon": "$(refresh)"
       },
       {
         "command": "mcpWorkbench.refreshResults",
-        "title": "Refresh",
+        "title": "%command.refreshResults.title%",
         "icon": "$(refresh)"
       },
       {
         "command": "mcpWorkbench.generateSpec",
-        "title": "MCP Workbench: Generate Spec from Server",
+        "title": "%command.generateSpec.title%",
         "icon": "$(sparkle)"
       }
     ],
@@ -103,29 +104,29 @@
       "mcp-workbench": [
         {
           "id": "mcpWorkbenchResults",
-          "name": "Test Results",
+          "name": "%view.testResults.name%",
           "icon": "$(beaker)",
           "contextualTitle": "MCP Workbench Test Results"
         }
       ]
     },
     "configuration": {
-      "title": "MCP Workbench",
+      "title": "%config.title%",
       "properties": {
         "mcpWorkbench.cliPath": {
           "type": "string",
           "default": "mcp-workbench",
-          "description": "Path to the mcp-workbench CLI executable. Defaults to 'mcp-workbench' (assumes globally installed)."
+          "description": "%config.cliPath.description%"
         },
         "mcpWorkbench.timeout": {
           "type": "number",
           "default": 30000,
-          "description": "Per-request timeout in milliseconds."
+          "description": "%config.timeout.description%"
         },
         "mcpWorkbench.specGlob": {
           "type": "string",
           "default": "**/*.{yaml,yml}",
-          "description": "Glob pattern to discover spec files for 'Run Workspace Specs'."
+          "description": "%config.specGlob.description%"
         }
       }
     }
@@ -141,6 +142,7 @@
   "devDependencies": {
     "@types/node": "^22.0.0",
     "@types/vscode": "^1.85.0",
+    "@vscode/l10n-dev": "^0.0.35",
     "esbuild": "^0.24.0",
     "typescript": "^5.6.0",
     "vitest": "^2.0.0"

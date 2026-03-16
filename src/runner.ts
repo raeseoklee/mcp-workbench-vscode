@@ -77,7 +77,7 @@ export function runSpec(opts: RunOptions): Promise<RunResult> {
 
     const timer = setTimeout(() => {
       proc.kill();
-      settle(() => reject(new Error(`mcp-workbench timed out after ${timeout}ms`)));
+      settle(() => reject(new Error(vscode.l10n.t("mcp-workbench timed out after {0}ms", timeout))));
     }, timeout + TIMEOUT_BUFFER_MS);
 
     proc.on("close", () => {
@@ -89,7 +89,7 @@ export function runSpec(opts: RunOptions): Promise<RunResult> {
         } catch {
           reject(
             new Error(
-              `Failed to parse mcp-workbench output.\n${stderr || stdout}`.trim(),
+              `${vscode.l10n.t("Failed to parse mcp-workbench output.")}\n${(stderr || stdout).trim()}`,
             ),
           );
         }
@@ -101,8 +101,11 @@ export function runSpec(opts: RunOptions): Promise<RunResult> {
       settle(() =>
         reject(
           new Error(
-            `Failed to launch mcp-workbench: ${err.message}\n` +
-              `Make sure '${cli}' is installed (npm install -g @mcp-workbench/cli).`,
+            vscode.l10n.t(
+              "Failed to launch mcp-workbench: {0}\nMake sure '{1}' is installed (npm install -g @mcp-workbench/cli).",
+              err.message,
+              cli,
+            ),
           ),
         ),
       );
