@@ -204,6 +204,20 @@ VS Code에서 **F5**를 눌러 Extension Development Host를 실행합니다.
 
 ---
 
+## 에코시스템
+
+이 확장은 MCP Workbench — MCP 서버를 테스트·검사·검증하는 개발자 툴킷의 일부입니다:
+
+| 인터페이스 | 저장소 | 설명 |
+|-----------|--------|------|
+| CLI (사람용) | [mcp-workbench](https://github.com/raeseoklee/mcp-workbench) | 터미널에서 검사, 테스트, 검증 |
+| VS Code (개발자용) | **이 저장소** | 에디터에서 인터랙티브 워크플로 |
+| MCP Server (에이전트용) | [mcp-workbench-mcp-server](https://github.com/raeseoklee/mcp-workbench-mcp-server) | AI 에이전트에 기능 노출 |
+
+모든 인터페이스는 동일한 코어 검증 엔진을 공유합니다.
+
+---
+
 ## 기여
 
 기여를 환영합니다. 이슈를 열거나 pull request를 제출해 주세요.

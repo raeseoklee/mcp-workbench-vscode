@@ -204,6 +204,20 @@ Press **F5** in VS Code to launch the Extension Development Host.
 
 ---
 
+## Ecosystem
+
+This extension is part of MCP Workbench — a developer toolkit for testing, inspecting, and validating MCP servers:
+
+| Interface | Repository | Description |
+|-----------|-----------|-------------|
+| CLI (human-facing) | [mcp-workbench](https://github.com/raeseoklee/mcp-workbench) | Inspect, test, validate from the terminal |
+| VS Code (developer-facing) | **this repo** | Interactive workflow in the editor |
+| MCP Server (agent-facing) | [mcp-workbench-mcp-server](https://github.com/raeseoklee/mcp-workbench-mcp-server) | Expose capabilities to AI agents |
+
+All interfaces share the same core validation engine.
+
+---
+
 ## Contributing
 
 Contributions are welcome. Please open an issue or submit a pull request.
